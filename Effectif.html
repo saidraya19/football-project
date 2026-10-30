@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body class="bg-slate-500">
+     <header class="flex flex-wrap items-center justify-between gap-4 bg-[#111827] px-8 py-4 text-white border-b border-gray-800 ">
+    
+    <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-white font-bold text-xl">
+            ⚽
+        </div>
+        <div class="flex flex-col">
+            <h1 class="font-bold tracking-wider text-lg uppercase leading-tight">TACHKILA</h1>
+            <span class="text-xs text-gray-400 uppercase tracking-widest font-medium">ATLAS FC</span>
+        </div>
+    </div>
+
+    <nav class="flex items-center rounded-lg bg-gray-800/60 p-1 border border-gray-700/50">
+        <a href="#" class="rounded-md bg-green-500 px-5 py-1.5 text-sm font-semibold text-white shadow">
+            Effectif
+        </a>
+        <a href="index.html" class="rounded-md px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white transition">
+            Composition
+        </a>
+        <a href="#" class="rounded-md px-5 py-1.5 text-sm font-medium text-gray-300 hover:text-white transition">
+            Matchs
+        </a>
+    </nav>
+
+    <div class="flex items-center gap-5 text-xs font-semibold tracking-wide text-gray-300">
+        <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+            <span>GB</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span>
+            <span>DEF</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+            <span>MIL</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="h-2.5 w-2.5 rounded-full bg-rose-500"></span>
+            <span>ATT</span>
+        </div>
+    </div>
+</header>
+
+<main class=" bg-slate-900 flex flex-col gap-10 p-10">
+    <div id="msg-success" hidden class="fixed inset-0 z-20 flex items-center justify-center p-4 pointer-events-none">
+    <p class="rounded-lg border border-white bg-green-500 px-4 py-2 text-white">Player added successfully</p>
+</div>
+    <div class="scall absolute w-full h-full flex justify-center items-center backdrop-blur-[1px]"
+     hidden id="modifier">
+
+    <div class="flex justify-center items-center">
+        <div class="w-120 border h-140 p-10 rounded-xl bg-slate-950">
+
+            <div class="flex justify-between items-center">
+                <h2>
+                    <strong>Modifier un joueur</strong>
+                </h2>
+
+                <button type="button"
+                        class="flex justify-center bg-red-500 rounded-2xl w-7 h-6.5 modifier-close-btn">
+                    <strong>X</strong>
+                </button>
+            </div>
+
+            <br>
+
+      
+            <div class="flex flex-col">
+                <label class="cursor-pointer" for="edit-player">
+                    Nom complet
+                </label>
+
+                <input class="w-100 h-9 border rounded-md"
+                       type="text"
+                       required
+                       placeholder="Ex. Cristiano Ronaldo"
+                       id="edit-player">
+            </div>
+
+            <p class="edit-error-msg-name text-red-400"></p>
+
+            <br>
+
+     
+            <div class="flex items-center gap-2">
+                <h3 class="opacity-40 m-0">Poste</h3>
+                <p class="edit-msg-post m-0"></p>
+            </div>
+
+            <div class="flex flex-col gap-6">
+
+                
+                <div class="flex items-center gap-8">
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+
+                        <button type="button"
+                                class="bg-[#111a2d] border rounded-xl py-1.5 px-14 cursor-pointer edit-btn-post">
+                            <strong>Gardien</strong>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+
+                        <button type="button"
+                                class="bg-[#111a2d] border rounded-xl py-1.5 px-16 cursor-pointer edit-btn-post">
+                            <strong>Milieu</strong>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="flex items-center gap-8">
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+
+                        <button type="button"
+                                class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer edit-btn-post">
+                            <strong>Défenseur</strong>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+
+                        <button type="button"
+                                class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer edit-btn-post">
+                            <strong>Attaquant</strong>
+                        </button>
+                    </div>
+                    
+
+                </div>
+               
+
+</div>
+<br>
+ <div class="flex items-center gap-8">
+
+    <!-- En Forme -->
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 shrink-0 bg-orange-500 rounded-full"></span>
+
+        <button type="button"
+            class="w-45 bg-green-400 border rounded-xl py-1.5 cursor-pointer edit-btn-post">
+            <strong>En Forme</strong>
+        </button>
+    </div>
+
+    <!-- Blessé -->
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 shrink-0 bg-red-900 rounded-full"></span>
+
+        <button type="button"
+            class="w-42 bg-[#111a2d] border rounded-xl py-1.5 cursor-pointer edit-btn-post" id="btn_bless">
+            <strong>Blessé</strong>
+        </button>
+    </div>
+    </div>
+
+                <div class="flex justify-center">
+                    <div class="flex flex-col">
+
+                        <label class="cursor-pointer" for="edit-numberofplayer">
+                            Numéro (1 à 99)
+                        </label>
+
+                        <input class="border w-100 h-9 rounded-md"
+                               type="number"
+                               required
+                               placeholder="Ex. 7"
+                               id="edit-numberofplayer">
+
+                        <p class="edit-msg-number text-red-400"></p>
+
+                    </div>
+                </div>
+                 <div>
+    <label for="age">age (15 à 55)</label><input type="number" placeholder="age..." required id="age_modif" class="border w-100 h-9 rounded-md text-white">
+    <p class="msg-age text-red-400"></p>
+</div>
+<br>
+
+                <div class="flex justify-end gap-4">
+
+                    <button type="button"
+                            class="bg-[#111a2d] border rounded-xl py-1.5 px-4 cursor-pointer modifier-close-btn">
+                        <strong>Annuler</strong>
+                    </button>
+
+                    <button type="button"
+                            class="bg-blue-500 border rounded-xl py-1.5 px-4 cursor-pointer"
+                            id="btn-edit-submit">
+                        <strong>Enregistrer</strong>
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="modal-delete" hidden class="absolute inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
+    <div class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-950 p-6 text-white">
+        <h2 class="mb-4 text-lg font-bold">Supprimer un joueur</h2>
+
+    <p id="delete-message" class="mb-6 text-slate-300"></p>
+
+    <div class="flex justify-end gap-3">
+        <button id="cancel-delete" type="button" class="rounded-lg border border-slate-600 px-4 py-2">
+            Annuler
+        </button>
+
+        <button id="confirm-delete" type="button" class="rounded-lg bg-red-500 px-4 py-2">
+            Supprimer
+        </button>
+    </div>
+</div>
+
+</div>
+    <div class=" scall absolute w-full h-full flex justify-center items-center  backdrop-blur-[1px] " hidden  id="ajout">
+ <div class="flex justify-center items-center h-full " >
+    <div class="w-120 border h-155 p-8  rounded-xl bg-slate-950  " >
+        <div class="flex   justify-between items-center">
+        <h2> <strong>ajouter un joueur</strong></h2>
+        <button class=" flex justify-center bg-red-500 rounded-2xl w-7 h-6.5 ajout-btn"><strong>X</strong></button>
+        </div>
+        <br>
+        <div class=" flex flex-col">
+        <label class="cursor-pointer" for="player">nom complet</label>
+        <input  class="w-100 h-9 border rounded-md" type="text" required  placeholder="Ex. cristiano ronaldo" id="player">
+        </div>
+        <p class="error-msg-name  text-red-400"></p>
+        <br>
+      <div class="flex items-center gap-2">
+    <h3 class="opacity-40 m-0">poste</h3>
+    <p class="msg-post m-0"></p>
+</div>
+<div class="flex flex-col gap-6 " >
+    <div class="flex items-center gap-8">
+        <div class="flex items-center gap-2 ">
+            <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-14 cursor-pointer btn-post"><strong>Gardien</strong></button>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-16 cursor-pointer btn-post"><strong>Milieu</strong></button>
+        </div>
+    </div>
+    <div class="flex items-center gap-8">
+        <div class="flex items-center  gap-2 bg">
+            <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer btn-post"><strong>Défenseur</strong></button>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+            <button class="bg-[#111a2d] border rounded-xl py-1.5 px-12 cursor-pointer btn-post"><strong>Attaquant</strong></button>
+        
+        </div>
+    </div>
+ 
+<div class="flex items-center gap-8">
+
+    <!-- En Forme -->
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 shrink-0 bg-orange-500 rounded-full"></span>
+
+        <button type="button"
+            class="w-45  border rounded-xl py-1.5 cursor-pointer btn_sitiation">
+            <strong>En Forme</strong>
+        </button>
+    </div>
+
+    <!-- Blessé -->
+    <div class="flex items-center gap-2">
+        <span class="w-3 h-3 shrink-0 bg-red-900 rounded-full"></span>
+
+        <button type="button"
+            class="w-42 bg-[#111a2d] border rounded-xl py-1.5 cursor-pointer edit-btn-post btn_sitiation ">
+            <strong>Blessé</strong>
+        </button>
+    </div>
+
+</div>
+    <div class="flex justify-center">
+    <div class="flex flex-col">
+        <label class="cursor-pointer" for="numberofplayer">Numéro (1 á 99)</label>
+        <input class=" border w-100 h-9 rounded-md" type="number" required  placeholder="Ex. 7" id="numberofplayer">
+        <p class="msg-number  text-red-400"></p>
+
+    </div>
+
+    </div>
+    <div>
+    <input type="number" placeholder="age..." required id="age" class="border w-100 h-9 rounded-md text-white">
+    <p class="msg-age text-red-400"></p>
+</div>
+    
+     <div class="flex justify-end gap-4 classs">
+        <button class="bg-[#111a2d] border rounded-xl py-1.5 px-4 cursor-pointer ajout-btn "> <strong>Annuler</strong></button>
+        <button class= "bg-green-500 border rounded-xl py-1.5 px-4 cursor-pointer " id="btn-submit"> <strong>Ajouter</strong></button>
+    </div>
+
+</div>
+    </div>
+    </div>
+    </div>
+<div class="flex flex-col gap-3">
+    <h1 class="text-4xl font-bold text-white">Effectif</h1>
+
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h3 class="text-white opacity-60">Gérez les joueurs du club Atlas FC</h3>
+
+        <button class="ajout-btn w-full sm:w-60 h-10 bg-green-500 text-white rounded-md font-bold cursor-pointer text-base">
+            + Ajouter un joueur
+        </button>
+    </div>
+</div>
+
+
+   
+               
+        <div class="flex justify-between items-center border bg-slate-900 text-white rounded-lg">
+            <div class="w-full">
+                <input
+                    class="px-4 py-3 w-[80%] text-white rounded bg-slate-800"
+                    type="text"
+                    id="search"
+                    placeholder="Rechercher un joueur par nom..."
+                >
+            </div>
+
+            <div>
+                <ul class="flex gap-6 text-xl p-5">
+                    <li class="bg-green-500 rounded w-15 px-3 pb-1">tous</li>
+                    <li>GB</li>
+                    <li>DEF</li>
+                    <li>MIL</li>
+                    <li>ATT</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <section id="rand" class="grid grid-cols-4 w-full gap-6">
+</section>
+
+</main>
+<div hidden>
+    <div class="form_general_player">
+        <div class="player-card"></div>
+        <div class="select-group">
+            <select></select>
+        </div>
+    </div>
+
+    <div id="modifier">
+        <button class="edit-btn-post" type="button"></button>
+        <button class="modifier-close-btn" type="button"></button>
+        <input id="edit-player">
+        <input id="edit-numberofplayer">
+        <p class="edit-error-msg-name"></p>
+        <p class="edit-msg-number"></p>
+        <button id="btn-edit-submit" type="button"></button>
+    </div>
+</div>
+</body>
+<script type="module" src="effectif.js"></script>
+</html>

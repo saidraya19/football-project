@@ -7,6 +7,7 @@ import {
     border_by_pos,
     posible_posts,    
 } from "./data.js";
+console.log(list_of_players )
 
 const all = document.querySelector(".form_general_player");
 const select_template = all.querySelector(".select-group").cloneNode(true);
@@ -14,6 +15,8 @@ all.querySelector(".player-card").remove();
 
 const edit_modal = document.querySelector("#modifier");
 const edit_name = document.querySelector("#edit-player");
+const edit_age = document.querySelector("#age_modif")
+
 const edit_number = document.querySelector("#edit-numberofplayer");
 const edit_submit = document.querySelector("#btn-edit-submit");
 const edit_error_name = document.querySelector(".edit-error-msg-name");
@@ -21,11 +24,32 @@ const edit_error_number = document.querySelector(".edit-msg-number");
 const edit_post_buttons = edit_modal.querySelectorAll(".edit-btn-post");
 const close_edit_buttons = edit_modal.querySelectorAll(".modifier-close-btn");
 const btn_sitiations = document.querySelectorAll(".btn_sitiation")
+const bt_sitiation_edit = document.querySelectorAll(".bt_sitiation")
+export const input_search = document.querySelector("#search")
+export const choice_search = document.querySelectorAll(".choice_s")
+const msg_sitiation = document.querySelector(".msg-sitiation")
+const edit_error_age = document.querySelector(".edit-msg-age");
+
 let joueur_en_modification = null;
 let post_edit = "";
 let sitiation = "";
-
+let sitiation_edit = ""
 const orange = "bg-[oklch(66.6%_0.179_58.318)]";
+choice_search.forEach(function(btn){
+    if(btn.textContent.trim() === "tous")
+    {
+        btn.classList.add("bg-green-500")
+    }
+})
+choice_search.forEach(function(btn){
+
+    btn.addEventListener("click",function(){
+        choice_search.forEach(function(btn){
+    btn.classList.remove("bg-green-500")
+        })
+        btn.classList.add("bg-green-500")
+    })
+})
 
 for (let i = 0; i < close_edit_buttons.length; i++) {
     close_edit_buttons[i].addEventListener("click", function () {
@@ -153,14 +177,38 @@ function ouvrir_suppression(player, carte) {
         show_message(player.name + " removed successfully");
     };
 }
+ bt_sitiation_edit.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+           bt_sitiation_edit.forEach(function (b) {
+                b.classList.remove("bg-green-400");
+            });
+            btn.classList.add("bg-green-400");
+            sitiation_edit = btn.textContent.trim();
+        });
+    });
 function ouvrir_modification(player) {
     joueur_en_modification = player;
     post_edit = player.post;
+    sitiation_edit = player.sitiations;
 
     edit_name.value = player.name;
     edit_number.value = player.number;
+    edit_age.value = player.age;
+
+
+bt_sitiation_edit.forEach(function(btn) {
+    btn.classList.remove("bg-green-400");
+
+    if (btn.textContent.trim() === player.sitiations) {
+        btn.classList.add("bg-green-400");
+    }
+});
+
+
     edit_error_name.textContent = "";
     edit_error_number.textContent = "";
+    edit_error_age.textContent = "";
+
 
     for (let i = 0; i < edit_post_buttons.length; i++) {
         edit_post_buttons[i].classList.remove(orange);
@@ -258,6 +306,10 @@ edit_submit.addEventListener("click", function () {
     const nom = edit_name.value.trim();
     const numero = Number(edit_number.value);
 
+    const age_joueur = Number(edit_age.value);
+const age_valide = age_joueur >= 15 && age_joueur <= 50;
+    
+
     const nom_valide = regex_nom.test(nom);
     const numero_valide = regexofnumber.test(edit_number.value);
 
@@ -273,7 +325,7 @@ edit_submit.addEventListener("click", function () {
     } else {
         edit_error_name.textContent = "Veuillez saisir un nom valide.";
     }
-
+    edit_error_age.textContent = age_valide ? "" : "Âge invalide (15 à 50).";
     if (!numero_valide) {
         edit_error_number.textContent = "Numéro invalide. Saisissez un numéro entre 1 et 99.";
     } else if (numero_utilise) {
@@ -282,7 +334,7 @@ edit_submit.addEventListener("click", function () {
         edit_error_number.textContent = "";
     }
 
-    if (!nom_valide || !numero_valide || numero_utilise || post_edit === "") {
+    if (!nom_valide || !numero_valide || numero_utilise || !age_valide || post_edit === "") {
         return;
     }
 
@@ -298,6 +350,8 @@ edit_submit.addEventListener("click", function () {
     joueur_en_modification.name = nom;
     joueur_en_modification.number = numero;
     joueur_en_modification.post = post_edit;
+    joueur_en_modification.age = age_joueur;
+    joueur_en_modification.sitiations = sitiation_edit;
 
     if (carte) {
         carte.dataset.playerNumber = numero;
@@ -351,7 +405,7 @@ export function creer_carte_effectif(player) {
 
     const carte = document.createElement("div");
     carte.className =
-        "flex flex-col gap-5 rounded-xl border border-slate-700 border-l-4 " +
+        " relative flex flex-col gap-5 rounded-xl border border-slate-700 border-l-4 " +
         "bg-slate-800/60 p-5 transition hover:-translate-y-1 hover:bg-slate-800 " +
         style.bordure;
 
@@ -375,14 +429,21 @@ export function creer_carte_effectif(player) {
     const infos = document.createElement("div");
     infos.className = "flex flex-col gap-1";
     infos.append(nom, badge, ages);
-
-   
-
     const haut = document.createElement("div");
     haut.className = "flex items-center gap-4";
     haut.append(cercle, infos);
     const bas = document.createElement("div");
-    bas.className = "flex justify-end gap-2";
+    const all_crude = document.createElement("div")
+    all_crude.className = "flex justify-end gap-2";
+    bas.className = "flex place-content-between flex-wrap";
+    const sitiation = document.createElement("div")
+    const sitiation_afich = document.createElement("p")
+    sitiation_afich.textContent = player.sitiations
+    if(sitiation_afich.textContent === "En Forme") {sitiation_afich.classList.add("bg-green-500", "rounded-sm", "p-1")}
+        else if(sitiation_afich.textContent === "Blessé" ) {sitiation_afich.classList.add("bg-red-500", "rounded-sm" , "p-1")}
+
+    sitiation.append(sitiation_afich)
+
 const btn_edit = document.createElement("button");
     btn_edit.type = "button";
     btn_edit.textContent = "✏️";
@@ -390,7 +451,6 @@ const btn_edit = document.createElement("button");
     btn_edit.addEventListener("click", function () {
         ouvrir_modification(player);
     });
-
     const btn_remove = document.createElement("button");
     btn_remove.type = "button";
     btn_remove.innerHTML = '<i class="fa-solid fa-trash"></i>';
@@ -398,18 +458,41 @@ const btn_edit = document.createElement("button");
     btn_remove.addEventListener("click", function () {
         ouvrir_suppression(player, carte);
     });
-    
-     const capitan = document.createElement("button");
-    capitan.type = "button";
-    capitan.innerHTML = "C";
-    capitan.classList.add("cursor-pointer", "text-white", "bg-pink-500", "w-5.5", "rounded-sm", "transition-colors");
-    
-   bas.append(capitan, btn_edit, btn_remove)
+     const capitan_ = document.createElement("button");
+    capitan_.type = "button";
+    capitan_.innerHTML = "C";
+    capitan_.classList.add("cursor-pointer", "text-white", "bg-pink-500", "w-5.5", "rounded-sm", "transition-colors", "h-6", "mt-1");
+   
+       capitan_.addEventListener("click", function () {
+    for (const p of list_of_players) {
+        p.capitan = "";
+    }
+    player.capitan = "capitan";
+    setitems(list_of_players);
 
+    const rand = document.querySelector("#rand");
+    rand.innerHTML = "";
+    for (const p of list_of_players) {
+        rand.append(creer_carte_effectif(p));
+    }
+});     
+    
+   all_crude.append(capitan_, btn_edit, btn_remove)
+   bas.append( sitiation, all_crude)
+   if (player.capitan === "capitan") {
+    const badge_capitan = document.createElement("div");
+    badge_capitan.className =
+        "absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center " +
+        "rounded-full bg-purple-500 text-white text-xs font-bold";
+        carte.classList.add("border-t-purple-500", "border-b-purple-500", "border-r-purple-500", "border-4")
+         
+    badge_capitan.textContent = "C";
+    carte.append(badge_capitan);
+   }
     carte.append(haut, bas);
-
     return carte;
 }
+
  export function add() {
     const btnajouter = document.querySelectorAll(".ajout-btn");
     const formajout = document.querySelector("#ajout");
@@ -449,7 +532,6 @@ const btn_edit = document.createElement("button");
             sitiation = btn.textContent.trim();
         });
     });
-
     btn_sub.addEventListener("click", function (event) {
         event.preventDefault();
 
@@ -468,11 +550,16 @@ const btn_edit = document.createElement("button");
                 numero_utilise = true;
             }
         }
-        
 
         error_name.textContent = nom_valide ? "" : "Veuillez saisir un nom valide.";
         error_age.textContent = age_valide ? "" : "Âge invalide (15 à 50).";
-
+        if(!sitiation)
+        {
+            msg_sitiation.classList.remove("hidden")
+        }
+        else{
+            msg_sitiation.classList.add("hidden")
+        }
         if (!numero_valide) {
             error_number.textContent = "Numéro invalide. Saisissez un numéro entre 1 et 99.";
         } else if (numero_utilise) {
@@ -481,7 +568,7 @@ const btn_edit = document.createElement("button");
             error_number.textContent = "";
         }
 
-        if (!nom_valide || !numero_valide || numero_utilise || !age_valide || post === "") {
+        if (!nom_valide || !numero_valide || numero_utilise || !age_valide || post === "" || sitiation === "" ) {
             return;
         }
 

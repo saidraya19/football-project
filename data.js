@@ -12,7 +12,12 @@ const initial_players = [
     { name: "Cristiano Ronaldo", number: 9, post: "Attaquant",age:20, sitaitions:"En Forme" },
     { name: "Cristiano", number: 20, post: "Milieu",age:20, sitaitions:"En Forme"}
 ];
-
+export const postes = {
+    GB: "Gardien",
+    DEF: "Défenseur",
+    MIL: "Milieu",
+    ATT: "Attaquant"
+};
 const key = "my_key";
 
 export function setitems(users) {

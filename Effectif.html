@@ -57,7 +57,7 @@
     <div id="msg-success" hidden class="fixed inset-0 z-20 flex items-center justify-center p-4 pointer-events-none">
     <p class="rounded-lg border border-white bg-green-500 px-4 py-2 text-white">Player added successfully</p>
 </div>
-    <div class="scall absolute w-full h-full flex justify-center items-center backdrop-blur-[1px]"
+    <div class="scall absolute w-full z-50 h-full flex justify-center items-center backdrop-blur-[1px]"
      hidden id="modifier">
 
     <div class="flex justify-center items-center">
@@ -157,7 +157,7 @@
         <span class="w-3 h-3 shrink-0 bg-orange-500 rounded-full"></span>
 
         <button type="button"
-            class="w-45 bg-green-400 border rounded-xl py-1.5 cursor-pointer edit-btn-post">
+            class="w-45 bg-green-400 border rounded-xl py-1.5 cursor-pointer bt_sitiation">
             <strong>En Forme</strong>
         </button>
     </div>
@@ -167,7 +167,7 @@
         <span class="w-3 h-3 shrink-0 bg-red-900 rounded-full"></span>
 
         <button type="button"
-            class="w-42 bg-[#111a2d] border rounded-xl py-1.5 cursor-pointer edit-btn-post" id="btn_bless">
+            class="w-42 bg-[#111a2d] border rounded-xl py-1.5 cursor-pointer bt_sitiation" id="btn_bless">
             <strong>Blessé</strong>
         </button>
     </div>
@@ -233,7 +233,7 @@
 </div>
 
 </div>
-    <div class=" scall absolute w-full h-full flex justify-center items-center  backdrop-blur-[1px] " hidden  id="ajout">
+    <div class=" scall absolute w-full h-full flex justify-center  z-50 items-center  backdrop-blur-[1px] " hidden  id="ajout">
  <div class="flex justify-center items-center h-full " >
     <div class="w-120 border h-155 p-8  rounded-xl bg-slate-950  " >
         <div class="flex   justify-between items-center">
@@ -273,7 +273,7 @@
         
         </div>
     </div>
- 
+  <p class="msg-sitiation hidden text-red-500">Veuillez choisir une situation.</p>
 <div class="flex items-center gap-8">
 
     <!-- En Forme -->
@@ -285,13 +285,11 @@
             <strong>En Forme</strong>
         </button>
     </div>
-
-    <!-- Blessé -->
     <div class="flex items-center gap-2">
         <span class="w-3 h-3 shrink-0 bg-red-900 rounded-full"></span>
 
         <button type="button"
-            class="w-42 bg-[#111a2d] border rounded-xl py-1.5 cursor-pointer edit-btn-post btn_sitiation ">
+            class="w-42 bg-[#111a2d] border rounded-xl py-1.5 cursor-pointer  btn_sitiation ">
             <strong>Blessé</strong>
         </button>
     </div>
@@ -306,9 +304,9 @@
     </div>
 
     </div>
-    <div>
-    <input type="number" placeholder="age..." required id="age" class="border w-100 h-9 rounded-md text-white">
-    <p class="msg-age text-red-400"></p>
+              <div>
+    <label for="age" class="ml-1.5">age (15 à 55)</label><input type="number" placeholder="age..." required id="age" class=" ml-1.5 border w-100 h-9 rounded-md text-white">
+    <p class="edit-msg-age text-red-400"></p>
 </div>
     
      <div class="flex justify-end gap-4 classs">
@@ -336,22 +334,19 @@
    
                
         <div class="flex justify-between items-center border bg-slate-900 text-white rounded-lg">
-            <div class="w-full">
-                <input
-                    class="px-4 py-3 w-[80%] text-white rounded bg-slate-800"
-                    type="text"
-                    id="search"
-                    placeholder="Rechercher un joueur par nom..."
-                >
-            </div>
+            <div class="w-full p-3">
+    <input class="px-4 py-3 w-[80%] text-white rounded bg-slate-800"
+           type="text" id="search"
+           placeholder="Rechercher un joueur par nom...">
+</div>
 
             <div>
                 <ul class="flex gap-6 text-xl p-5">
-                    <li class="bg-green-500 rounded w-15 px-3 pb-1">tous</li>
-                    <li>GB</li>
-                    <li>DEF</li>
-                    <li>MIL</li>
-                    <li>ATT</li>
+                    <li class="rounded w-15 px-3 pb-1 choice_s">tous</li>
+                    <li class="rounded w-15 px-3 pb-1 choice_s">GB</li>
+                    <li class="rounded w-15 px-3 pb-1 choice_s">DEF</li>
+                    <li class="rounded w-15 px-3 pb-1 choice_s">MIL</li>
+                    <li class="rounded w-15 px-3 pb-1 choice_s">ATT</li>
                 </ul>
             </div>
         </div>
@@ -366,16 +361,6 @@
         <div class="select-group">
             <select></select>
         </div>
-    </div>
-
-    <div id="modifier">
-        <button class="edit-btn-post" type="button"></button>
-        <button class="modifier-close-btn" type="button"></button>
-        <input id="edit-player">
-        <input id="edit-numberofplayer">
-        <p class="edit-error-msg-name"></p>
-        <p class="edit-msg-number"></p>
-        <button id="btn-edit-submit" type="button"></button>
     </div>
 </div>
 </body>

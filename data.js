@@ -57,3 +57,4 @@ export const posible_posts = {
     "Milieu": ["MG", "MC1", "MC2", "MD"],
     "Attaquant": ["BU1", "BU2"]
 };
+export const matchs = [];

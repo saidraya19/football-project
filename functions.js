@@ -41,15 +41,19 @@ choice_search.forEach(function(btn){
         btn.classList.add("bg-green-500")
     }
 })
-choice_search.forEach(function(btn){
+export function manipilation_color(classe) {
+
+classe.forEach(function(btn){
 
     btn.addEventListener("click",function(){
-        choice_search.forEach(function(btn){
+        classe.forEach(function(btn){
     btn.classList.remove("bg-green-500")
         })
         btn.classList.add("bg-green-500")
     })
 })
+}
+ manipilation_color(choice_search)
 
 for (let i = 0; i < close_edit_buttons.length; i++) {
     close_edit_buttons[i].addEventListener("click", function () {
@@ -65,9 +69,14 @@ for (let i = 0; i < edit_post_buttons.length; i++) {
         post_edit = edit_post_buttons[i].textContent.trim();
     });
 }
-export function show_message(message) {
+export function show_message(message, error = false) {
     const success = document.querySelector("#msg-success");
-    success.querySelector("p").textContent = message;
+    const p = success.querySelector("p");
+
+    p.textContent = message;
+    p.classList.remove("bg-green-500", "bg-red-500");
+    p.classList.add(error ? "bg-red-500" : "bg-green-500");
+
     success.removeAttribute("hidden");
     setTimeout(function () {
         success.setAttribute("hidden", "");
@@ -134,12 +143,12 @@ function mettre_position(player, pos) {
     const paragraphe = position.querySelector("p");
 
     if (paragraphe.textContent.trim() !== "Libre") {
-        show_message("Cette position est déjà occupée.");
+        show_message("Cette position est déjà occupée.", true);
         return false;
     }
 
     if (!posible_posts[player.post].includes(pos)) {
-        show_message("This player cannot play in this position");
+        show_message("This player cannot play in this position", true);
         return false;
     }
 
@@ -274,14 +283,23 @@ export function creer_carte(player) {
 
     const nom = document.createElement("strong");
     nom.textContent = player.name;
-
+    const sitiation = document.createElement("div")
+        const sitiation_afich = document.createElement("p")
+    if(player.sitiations.trim() === "Blessé") {
+        sitiation_afich.textContent = player.sitiations
+       sitiation_afich.classList.add(
+    "bg-red-500/15", "text-red-400", "border", "border-red-500/40",
+    "rounded", "px-2", "py-0.5", "text-xs", "font-semibold"
+);
+       sitiation.append(sitiation_afich)
+    }
     const post = document.createElement("p");
     post.textContent = player.post;
 
     const ligne_nom = document.createElement("div");
     ligne_nom.classList.add("flex", "items-center", "gap-2");
-    ligne_nom.append(nom);
-
+    ligne_nom.append(nom, sitiation);
+    ligne_nom.classList.add("flex", "place-content-between", "gap-2");
     div_details.append(ligne_nom, post, creer_select(player));
 
     ligne.append(div_number, div_details);
@@ -290,6 +308,14 @@ export function creer_carte(player) {
     carte.append(div_parent);
 
     colorer_carte(carte, div_number, player.post);
+    if (player.sitiations === "Blessé") {
+    carte.classList.add("opacity-50");
+
+    const select = carte.querySelector("select");
+    select.disabled = true;
+    select.value = "banc";
+    select.classList.add("cursor-not-allowed");
+}
     return carte;
 }
 export function show(player) {

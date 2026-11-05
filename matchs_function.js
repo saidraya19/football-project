@@ -9,6 +9,13 @@ import { adversair, date, heure, lieu, lieu_match,
 import {matchs } from "./data.js";
 import { regex_nom } from "./data.js"
 
+
+close_edit_match.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+        edit_modal_match.setAttribute("hidden", "");
+    });
+});
+
 //localStorage.setItem("my_key_matchs", JSON.stringify(matchs));
 const key = "my_key_matchs";
 export function setitems(users) {
@@ -46,7 +53,6 @@ export function show_message(message, error = false) {
     }, 1500);
 }
 function remove_match(match, cart) {
-
   msg_dlt.textContent = "Voulez-vous supprimer cett match  ?";
   modal_delete.removeAttribute("hidden");
   cancel_delete.onclick = function(){
@@ -60,9 +66,10 @@ function remove_match(match, cart) {
     cart.remove();
     show_message(" match removed successfully");
    }
-  
-}
+ 
+  }
 function edit(match){
+  edit_modal_match.removeAttribute("hidden");
   edit_adversaire.value = match.advensair;
   edit_date.value = match.date;
   edit_heure.value = match.heure;
@@ -111,7 +118,7 @@ function edit(match){
     })
 
 
-} 
+}    
   export function ajouter(){ 
   let location_ = "";
 
@@ -148,6 +155,7 @@ function edit(match){
 
 })
 }
+
 
 export function creer_match(match) {
     const grand = document.querySelector("#all");

@@ -1,16 +1,16 @@
 const initial_players = [
-    { name: "Thibaut Courtois", number: 1, post: "Gardien", age:20, sitaitions:"En Forme" },
-    { name: "Achraf Hakimi", number: 2, post: "Défenseur",age:20, sitaitions:"En Forme" },
-    { name: "Sergio Ramos", number: 4, post: "Défenseur", age:20, sitaitions:"En Forme" },
-    { name: "Virgil van Dijk", number: 5, post: "Défenseur",age:20, sitaitions:"En Forme" },
-    { name: "Marcelo", number: 12, post: "Défenseur",age:20, sitaitions:"En Forme" },
-    { name: "Luka Modrić", number: 10, post: "Milieu",age:20, sitaitions:"En Forme" },
-    { name: "Kevin De Bruyne", number: 17, post: "Milieu",age:20, sitaitions:"En Forme" },
-    { name: "Jude Bellingham", number: 22, post: "Milieu",age:20, sitaitions:"En Forme" },
-    { name: "Lionel Messi", number: 30, post: "Attaquant",age:20, sitaitions:"En Forme" },
-    { name: "Kylian Mbappé", number: 7, post: "Attaquant",age:20, sitaitions:"En Forme" },
-    { name: "Cristiano Ronaldo", number: 9, post: "Attaquant",age:20, sitaitions:"En Forme" },
-    { name: "Cristiano", number: 20, post: "Milieu",age:20, sitaitions:"En Forme"}
+    { name: "Thibaut Courtois", number: 1, post: "Gardien", age:20, sitiations:"En Forme" },
+    { name: "Achraf Hakimi", number: 2, post: "Défenseur",age:20, sitiations:"En Forme" },
+    { name: "Sergio Ramos", number: 4, post: "Défenseur", age:20, sitiations:"En Forme" },
+    { name: "Virgil van Dijk", number: 5, post: "Défenseur",age:20, sitiations:"En Forme" },
+    { name: "Marcelo", number: 12, post: "Défenseur",age:20, sitiations:"En Forme" },
+    { name: "Luka Modrić", number: 10, post: "Milieu",age:20, sitiations:"En Forme" },
+    { name: "Kevin De Bruyne", number: 17, post: "Milieu",age:20, sitiations:"En Forme" },
+    { name: "Jude Bellingham", number: 22, post: "Milieu",age:20, sitiations:"En Forme" },
+    { name: "Lionel Messi", number: 30, post: "Attaquant",age:20, sitiations:"En Forme" },
+    { name: "Kylian Mbappé", number: 7, post: "Attaquant",age:20, sitiations:"En Forme" },
+    { name: "Cristiano Ronaldo", number: 9, post: "Attaquant",age:20, sitiations:"En Forme" },
+    { name: "Cristiano", number: 20, post: "Milieu",age:20, sitiations:"En Forme"}
 ];
 export const postes = {
     GB: "Gardien",

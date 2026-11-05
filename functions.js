@@ -33,7 +33,7 @@ const edit_error_age = document.querySelector(".edit-msg-age");
 let joueur_en_modification = null;
 let post_edit = "";
 let sitiation = "";
-let sitiation_edit = ""
+let sitiation_edit = "";
 const orange = "bg-[oklch(66.6%_0.179_58.318)]";
 choice_search.forEach(function(btn){
     if(btn.textContent.trim() === "tous")
@@ -323,7 +323,6 @@ export function show(player) {
     all.append(carte);
     compter_joueurs();
 }
-
 edit_submit.addEventListener("click", function () {
     if (!joueur_en_modification) {
         return;

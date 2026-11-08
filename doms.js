@@ -25,3 +25,16 @@ export const edit_error_adv   = document.querySelector(".edit-error-adversaire")
 export const edit_error_lieu  = document.querySelector(".edit-error-lieu");
 export const edit_error_score = document.querySelector(".edit-error-score");
 export const btn_edit_submit  = document.querySelector("#btn-edit-match-submit");
+export const btn_score = document.querySelector(".btn_score")
+export const btn_cancel_score = document.querySelectorAll(".btn_cancel_score")
+export const btn_save = document.querySelector(".btn-save ")
+
+// dom dyal modal dyal  edit score
+export const modif_btn_score        = document.querySelector(".edit_btn_score");    
+export const edit_btn_save        = document.querySelector(".edit_btn_save");     
+export const modif_score_nous  = document.querySelector("#score-nous");
+export const modif_score_adv   = document.querySelector("#score-adv");
+export const modif_error_score = document.querySelector(".modif_error_msg");
+export const btn_cancel = document.querySelectorAll(".btn_cancel")
+export const search = document.querySelector("#search_")
+export const  felter_match = document.querySelectorAll(".btns")

@@ -182,6 +182,7 @@ function ouvrir_suppression(player, carte) {
         carte.remove();
         setitems(list_of_players);
         compter_joueurs();
+        render_effectif();
         modal.setAttribute("hidden", "");
         show_message(player.name + " removed successfully");
     };
@@ -396,13 +397,7 @@ const age_valide = age_joueur >= 15 && age_joueur <= 50;
     setitems(list_of_players);
     edit_modal.setAttribute("hidden", "");
 
-    const rand = document.querySelector("#rand");
-    if (rand) {
-        rand.innerHTML = "";
-        for (const p of list_of_players) {
-            rand.append(creer_carte_effectif(p));
-        }
-    }
+        render_effectif();
 
     joueur_en_modification = null;
     post_edit = "";
@@ -424,7 +419,55 @@ function creer_bouton_effectif(contenu, hover) {
         "text-sm text-slate-300 cursor-pointer transition hover:bg-slate-700 " + hover;
     return bouton;
 }
+const PAR_PAGE = 4;
+let page_courante = 1;
+let filtre_poste = "tous";  
+let texte_recherche = "";
 
+export function set_filtre(poste) {
+    filtre_poste = poste;
+    page_courante = 1;
+    render_effectif();
+}
+export function set_recherche(texte) {
+    texte_recherche = texte;
+    page_courante = 1;
+    render_effectif();
+}
+export function render_effectif() {
+    const rand = document.querySelector("#rand");
+    if (!rand) return;                       
+
+    const visibles = list_of_players.filter(function (p) {
+        const ok_poste = filtre_poste === "tous" || p.post.trim() === filtre_poste;
+        const ok_nom = p.name.trim().toLowerCase().includes(texte_recherche);
+        return ok_poste && ok_nom;
+    });
+    const total_pages = Math.max(1, Math.ceil(visibles.length / PAR_PAGE));
+    if (page_courante > total_pages) page_courante = total_pages;
+
+    const debut = (page_courante - 1) * PAR_PAGE;
+    rand.innerHTML = "";
+    for (const p of visibles.slice(debut, debut + PAR_PAGE)) {
+        rand.append(creer_carte_effectif(p));
+    }
+    document.querySelector("#page-info").textContent = "Page " + page_courante + " / " + total_pages;
+    document.querySelector("#btn-prev").disabled = page_courante === 1;
+    document.querySelector("#btn-next").disabled = page_courante === total_pages;
+}
+
+export function init_pagination() {
+    document.querySelector("#btn-prev").onclick = function () {
+        if (page_courante > 1) {
+            page_courante--;
+            render_effectif();
+        }
+    };
+    document.querySelector("#btn-next").onclick = function () {
+        page_courante++;
+        render_effectif();  
+    };
+}
 export function creer_carte_effectif(player) {
     const style = styles_effectif[player.post];
 
@@ -495,11 +538,7 @@ const btn_edit = document.createElement("button");
     player.capitan = "capitan";
     setitems(list_of_players);
 
-    const rand = document.querySelector("#rand");
-    rand.innerHTML = "";
-    for (const p of list_of_players) {
-        rand.append(creer_carte_effectif(p));
-    }
+     render_effectif();
 });     
     
    all_crude.append(capitan_, btn_edit, btn_remove)
@@ -601,7 +640,7 @@ const btn_edit = document.createElement("button");
 
         list_of_players.push(player);
         setitems(list_of_players);
-        rand.append(creer_carte_effectif(player));
+        render_effectif();
 
         name_.value = "";
         number.value = "";

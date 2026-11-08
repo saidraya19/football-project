@@ -1,57 +1,22 @@
-import { list_of_players } from "./data.js";
-import { creer_carte_effectif } from "./functions.js";
-import { add } from "./functions.js";
-import { input_search } from "./functions.js";
-import { choice_search } from "./functions.js"; 
-import { postes } from "./data.js";
-import { setitems } from "./data.js";
+import { list_of_players, postes, setitems } from "./data.js";
+import {
+    add, input_search, choice_search,
+    set_filtre, set_recherche, init_pagination, render_effectif
+} from "./functions.js";
 
-const rand = document.querySelector("#rand");
 setitems(list_of_players);
 
-choice_search.forEach(function(btn){
-    btn.addEventListener("click", function(){
-        rand.innerHTML = "";
-        if(btn.textContent.trim() === "tous")
-        {
-            for (const player of list_of_players) {
-                rand.append(creer_carte_effectif(player));
-            }
-            return;
-        }
-        else
-        {
-        for(const player of list_of_players)
-        {
-            if(player.post.trim() === postes[btn.textContent.trim()])
-            {
-                rand.append(creer_carte_effectif(player))
-            }
-        }
-    }
+choice_search.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+        const t = btn.textContent.trim();
+        set_filtre(t === "tous" ? "tous" : postes[t]);
+    });
+});
 
-})
-})
+input_search.addEventListener("input", function () {
+    set_recherche(input_search.value.trim().toLowerCase());
+});
 
-input_search.addEventListener("input", function(){
-    rand.innerHTML = "";
-    const text = input_search.value.trim().toLowerCase();
-    if(text !== "")
-    for (const p of list_of_players){
-    if(p.name.trim().toLowerCase().includes(text))
-    {
-        rand.append(creer_carte_effectif(p));
-    }
-}
-else{
-    for (const p of list_of_players){
-        rand.append(creer_carte_effectif(p));
-    }
-}
-})
-for (const player of list_of_players) { 
-        rand.append(creer_carte_effectif(player))
-    
-}
-
+init_pagination();
+render_effectif();
 add();

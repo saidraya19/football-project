@@ -6,7 +6,7 @@ import { adversair, date, heure, lieu, lieu_match,
     edit_score_nous, edit_score_adv,
     edit_error_adv, edit_error_lieu, edit_error_score,
     btn_edit_submit, btn_score, btn_cancel_score, btn_save, 
-    modif_btn_score,modif_score_nous, modif_score_adv, edit_btn_save    }from "./doms.js"
+    modif_btn_score,modif_score_nous, modif_score_adv, edit_btn_save, modif_error_score,btn_cancel   }from "./doms.js"
 import {matchs } from "./data.js";
 import { regex_nom } from "./data.js"
 
@@ -147,7 +147,7 @@ edit_lieu_btn.forEach(function (b) {
      }
      if(!valide_lieu)
      {
-        msg_error_lieu = "Veuillez saisir un advensair valide.";
+      msg_error_lieu = "Veuillez saisir un advensair valide.";
      }
      if(valid_advensair && valide_lieu && date.value !== "" && heure.value !== "" && location_ !== "")
      {
@@ -157,22 +157,38 @@ edit_lieu_btn.forEach(function (b) {
          modal_match.setAttribute("hidden", "");
         creer_match(mat);
      }
-
 })
 }
  function edit_scor(match){
-  modif_score_nous.value = match.nous_score;
- match.score_adv = match.score_adv;
+modif_score_nous.value = match.nous_score ?? "";
+  modif_score_adv.value = match.score_adv ?? "";
+  modif_error_score.textContent = "";
+  modif_btn_score.classList.remove("hidden");
   edit_btn_save.onclick = function(){
+  let n = modif_score_nous.value;
+  let a = modif_score_adv.value;
+    let valid_score =   Number.isInteger(Number(n)) && Number.isInteger(Number(a)) &&  Number(n) >= 0 && Number(a) >= 0 && Number(n) <= 99 && Number(a) <= 99;             
+    if(valid_score)
+    {
     match.nous_score =  modif_score_nous.value;
-    match.score_adv = match.score_adv
-  }  
-
-
-
+    match.score_adv = modif_score_adv.value;
+    setitems(matchs);
+    document.querySelector("#all").innerHTML = "";
+    for (const m of matchs) creer_match(m);
+    modif_btn_score.classList.add("hidden");
+    }
+    else
+    {
+      modif_error_score.textContent = "this score inpossible"
+      modif_error_score.classList.add("text-red-500");
+      modif_error_score.classList.remove("hidden");
+    }
+  }
  }
-
-
+ export function est_passe(match) {
+  const wa9t_match = new Date(`${match.date}T${match.heure}`).getTime();
+  return Date.now() >= wa9t_match;
+}
 export function creer_match(match) {
     const grand = document.querySelector("#all");
     const d = new Date(match.date); 
@@ -181,7 +197,6 @@ export function creer_match(match) {
     const jour = d.toLocaleDateString("fr-FR", { weekday: "short" });
     const mois = d.toLocaleDateString("fr-FR", { month: "short" });
 const matchDate = new Date(`${match.date}T${match.heure}`);
-
     const card = document.createElement("div")
     card.className = "flex items-center justify-between rounded-xl bg-slate-800 p-4 text-white ";
      card.innerHTML = `<div class="flex items-center gap-4">
@@ -191,7 +206,6 @@ const matchDate = new Date(`${match.date}T${match.heure}`);
       <span class="text-[10px] font-semibold uppercase opacity-60">${mois}</span>
       <span class="text-[10px] text-slate-400">${match.heure}</span>
     </div>
-
     <div>
       <span class="rounded bg-slate-700 px-2 py-0.5 text-[10px] font-semibold text-green-400">${match.location}</span>
       <h2 class="mt-1 text-base font-semibold">${match.advensair}</h2>
@@ -242,7 +256,7 @@ who_won.classList.remove("bg-green-500/20", "text-green-500","bg-red-500/20", "t
       }
   who_won.classList.remove("hidden");
   modif.classList.remove("hidden");
-
+cancel(btn_cancel, modif_btn_score)
 }
   const who_won = card.querySelector(".who_won")
   const saisir = card.querySelector(".saisir")
@@ -260,6 +274,7 @@ who_won.classList.remove("bg-green-500/20", "text-green-500","bg-red-500/20", "t
   if(new Date() >= matchDate.getTime())
 {
   if(match.nous_score === undefined){
+    modif.classList.remove("hidden");
   saisir.classList.remove("hidden")
   times.classList.add("hidden");
  
@@ -270,7 +285,6 @@ else{
   times.textContent = "Á Venir"
   times.classList.remove("hidden")
   times.classList.add("bg-blue-400")
-
 }
   }
 // take input score
@@ -286,18 +300,30 @@ const res =card.querySelector(".result")
       match.score_adv = edit_score_adv.value.trim();
       setitems(matchs)
       res.textContent = `${match.nous_score} - ${match.score_adv}`;
-      times.textContent = "Joués";
-      times.classList.remove("hidden");
+      times.textContent = "Joué";
+      
+
+      times.classList.remove("hidden", "bg-blue-400");
+
+      times.classList.add("bg-red-500");
       btn_score.classList.add("hidden")
       saisir.classList.add("hidden")
-      afficher_resultat()   
+      afficher_resultat()
     }
   }
   }
-  btn_cancel_score.forEach((e) =>{
+  modif.onclick = function(){
+    edit_scor(match);
+   
+  }
+  function cancel(clas, modal){
+  clas.forEach((e) =>{
    e.onclick =  function(){
-    btn_score.classList.toggle("hidden")}
+    modal.classList.toggle("hidden")}
  })
+}
+verefie();
+cancel(btn_cancel_score, btn_score);
   card.querySelector(".delet_btn").addEventListener("click", function(){
     remove_match(match, card);
   })

@@ -1,39 +1,74 @@
-# ⚽ Tachkila Atlas FC
+Tachkila Atlas FC
 
-##  Description
+Application web pour gérer un club de football : les joueurs, la composition de l'équipe en 4-4-2 et les matchs.
 
-Tachkila Atlas FC est une application web permettant de gérer les joueurs et de créer une composition d'équipe de football en formation 4-4-2.
+Les pages
+Effectif (Effectif.html) : gérer les joueurs.
+Composition (index.html) : placer les joueurs sur le terrain.
+Matchs (matchs.html) : gérer les matchs et les scores.
+Fonctionnalités
 
-## ✨ Fonctionnalités
+Effectif
 
-* Ajouter, modifier et supprimer des joueurs.
-* Gérer le nom, le numéro et le poste de chaque joueur.
-* Placer les joueurs sur un terrain selon leur poste.
-* Empêcher les doublons de numéros et les postes incompatibles.
-* Afficher des messages de succès et d'erreur.
-* Sauvegarder les données avec `localStorage`.
-* Afficher les postes avec des couleurs différentes.
-* Adapter l'interface aux écrans mobiles et aux ordinateurs.
+Ajouter, modifier et supprimer un joueur (nom, numéro, poste, âge, situation).
+Situation : En Forme ou Blessé.
+Choisir un capitaine.
+Rechercher un joueur par nom et filtrer par poste.
+Pagination : 4 joueurs par page.
 
-##  Technologies utilisées
+Composition
 
-* HTML5 et CSS3
-* JavaScript (DOM, événements, tableaux et objets)
-* Tailwind CSS
-* Expressions régulières (Regex)
-* localStorage
-* Git et GitHub
+Terrain en 4-4-2.
+Choisir la position de chaque joueur ou le mettre sur le banc.
+Un joueur ne peut jouer qu'à un poste compatible avec le sien.
+Une position déjà prise ne peut pas être reprise.
+Un joueur blessé ne peut pas être placé sur le terrain.
 
-##  Compétences acquises
+Matchs
 
-Ce projet m'a permis de pratiquer la manipulation du DOM, la validation des formulaires, la gestion des événements, la modification dynamique du contenu, le stockage local et le responsive design.
+Ajouter, modifier et supprimer un match.
+Le statut (À venir ou Joué) dépend de la date et de l'heure.
+Saisir et modifier le score, avec le résultat (Victoire, Défaite ou Nul).
+Filtrer les matchs et rechercher par adversaire.
 
-##  Installation
+En général
 
-1. Cloner le dépôt Git.
-2. Ouvrir le projet dans Visual Studio Code.
-3. Lancer `index.html` avec Live Server.
+Validation des formulaires avec des regex.
+Messages de succès et d'erreur.
+Données sauvegardées avec localStorage.
+Interface adaptée au mobile et à l'ordinateur.
+Règles de validation
+Nom : 3 à 30 lettres.
+Numéro : de 1 à 99, unique.
+Âge : de 15 à 50 ans.
+Score : entier de 0 à 99.
+Technologies
+HTML5, CSS3
+JavaScript (modules, DOM, événements)
+Tailwind CSS
+Regex
+localStorage
+Git et GitHub
+Structure
+index.html          Composition
+Effectif.html       Effectif
+matchs.html         Matchs
+main.js             script de la composition
+effectif.js         script de l'effectif
+matchs.js           script des matchs
+functions.js        fonctions des joueurs
+matchs_function.js  fonctions des matchs
+data.js             données, regex et localStorage
+doms.js             sélecteurs de la page Matchs
+style.css           styles
+img.jpg             image du terrain
+Installation
+Cloner le dépôt Git.
+Ouvrir le projet dans Visual Studio Code.
+Lancer index.html avec Live Server.
 
-##  Auteur
+Le projet utilise des modules JavaScript, il faut donc passer par Live Server (pas d'ouverture directe du fichier).
 
-**Said Raya**
+Auteur
+
+Said Raya
